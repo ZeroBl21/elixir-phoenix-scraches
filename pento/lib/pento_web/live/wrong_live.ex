@@ -3,14 +3,27 @@ defmodule PentoWeb.WrongLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, score: 0, message: "Make a guess:")}
+    {
+      :ok,
+      assign(socket,
+        id: :rand.uniform(100),
+        score: 0,
+        message: "Make a guess:",
+        time: time()
+      )
+    }
   end
 
   @impl true
   def render(assigns) do
     ~H"""
-    <h1>Your score: <%= @score %></h1>
+    <h1>Game #<%= @id %></h1>
     <h2>
+      <span>Your score: <%= @score %></span>
+      <p>
+        The time it's <time><%= @time %></time>
+      </p>
+      <br />
       <%= @message %>
     </h2>
     <h2>
@@ -21,17 +34,29 @@ defmodule PentoWeb.WrongLive do
     """
   end
 
+  def time() do
+    DateTime.utc_now() |> to_string
+  end
+
   @impl true
   def handle_event("guess", %{"number" => guess}, socket) do
-    message = "Your guess: #{guess}. Wrong. Guess Again. "
-    score = socket.assigns.score - 1
+    number = :rand.uniform(10)
+    guess = String.to_integer(guess)
+
+    {message, score_change} =
+      if guess == number do
+        {"You Win! The number was #{number}", 1}
+      else
+        {"Your guess: #{guess}. Wrong. Guess Again. The number was #{number}", -1}
+      end
 
     {
       :noreply,
       assign(
         socket,
         message: message,
-        score: score
+        score: socket.assigns.score + score_change,
+        time: time()
       )
     }
   end
