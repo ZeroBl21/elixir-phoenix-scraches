@@ -1,5 +1,5 @@
 defmodule PentoWeb.WrongLive do
-  use Phoenix.LiveView, layout: {PentoWeb.Layouts, :app}
+  use PentoWeb, :live_view
 
   @impl true
   def mount(_params, _session, socket) do
@@ -14,6 +14,7 @@ defmodule PentoWeb.WrongLive do
     }
   end
 
+  @spec render(any) :: Phoenix.LiveView.Rendered.t()
   @impl true
   def render(assigns) do
     ~H"""
@@ -28,7 +29,7 @@ defmodule PentoWeb.WrongLive do
     </h2>
     <h2>
       <%= for n <- 1..10 do %>
-        <a href="#" phx-click="guess" phx-value-number={n}><%= n %></a>
+        <.link href="#" phx-click="guess" phx-value-number={n}><%= n %></.link>
       <% end %>
     </h2>
     """
