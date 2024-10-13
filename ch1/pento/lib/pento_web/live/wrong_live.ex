@@ -18,7 +18,7 @@ defmodule PentoWeb.WrongLive do
   @impl true
   def render(assigns) do
     ~H"""
-    <h1>Game #<%= @id %></h1>
+    <h1 class="mb-4 text-4xl font-extrabold">Game #<%= @id %></h1>
     <h2>
       <span>Your score: <%= @score %></span>
       <p>
@@ -27,11 +27,18 @@ defmodule PentoWeb.WrongLive do
       <br />
       <%= @message %>
     </h2>
-    <h2>
+    <p class="mt-2">
       <%= for n <- 1..10 do %>
-        <.link href="#" phx-click="guess" phx-value-number={n}><%= n %></.link>
+        <.link
+          class="bg-blue-500 hover:bg-blue-700
+        text-white font-bold py-2 px-4 border border-blue-700 rounded m-1"
+          phx-click="guess"
+          phx-value-number={n}
+        >
+          <%= n %>
+        </.link>
       <% end %>
-    </h2>
+    </p>
     """
   end
 
