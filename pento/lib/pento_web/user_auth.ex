@@ -195,6 +195,14 @@ defmodule PentoWeb.UserAuth do
     end
   end
 
+  def redirect_authenticated_user_to_guess_live(conn, _opts) do
+    if conn.assigns[:current_user] do
+      redirect(conn, to: "/guess")
+    else
+      conn
+    end
+  end
+
   @doc """
   Used for routes that require the user to be authenticated.
 
