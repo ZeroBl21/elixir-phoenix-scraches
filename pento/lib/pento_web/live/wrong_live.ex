@@ -40,8 +40,9 @@ defmodule PentoWeb.WrongLive do
         </.link>
       <% end %>
       <pre class="pt-8 bg-slate-800 text-white rounded overflow-auto">
-        <%= @current_user.email %>
-        <%= @session_id %>
+        Username   <%= @current_user.username %>
+        Email      <%= @current_user.email %>
+        Session ID <%= @session_id %>
       </pre>
     </p>
     """
