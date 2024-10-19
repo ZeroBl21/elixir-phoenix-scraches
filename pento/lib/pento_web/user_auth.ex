@@ -197,7 +197,7 @@ defmodule PentoWeb.UserAuth do
 
   def redirect_authenticated_user_to_guess_live(conn, _opts) do
     if conn.assigns[:current_user] do
-      redirect(conn, to: "/guess")
+      redirect(conn, to: ~p"/guess")
     else
       conn
     end
