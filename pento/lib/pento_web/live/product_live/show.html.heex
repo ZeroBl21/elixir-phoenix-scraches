@@ -8,6 +8,15 @@
   </:actions>
 </.header>
 
+<div class="pt-3">
+  <img
+    src={@product.image_upload || "/images/image-placeholder-400x300.jpg"}
+    alt={"#{@product.name} Image"}
+    width="400"
+    height="300"
+    class="rounded object-cover"
+  />
+</div>
 <.list>
   <:item title="Name"><%= @product.name %></:item>
   <:item title="Description"><%= @product.description %></:item>
@@ -17,7 +26,12 @@
 
 <.back navigate={~p"/products"}>Back to products</.back>
 
-<.modal :if={@live_action == :edit} id="product-modal" show on_cancel={JS.patch(~p"/products/#{@product}")}>
+<.modal
+  :if={@live_action == :edit}
+  id="product-modal"
+  show
+  on_cancel={JS.patch(~p"/products/#{@product}")}
+>
   <.live_component
     module={PentoWeb.ProductLive.FormComponent}
     id={@product.id}
